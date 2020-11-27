@@ -16,4 +16,4 @@ Para executar, pode rodar no terminal com
 ```
 py linkedin_bot.py
 ```
-ou abrir na IDLE (editor do Python) pra alterar os termos da pesquisa e tal (acho melhor)
+ou abrir na IDLE (editor do Python) pra alterar os termos da pesquisa e tal
