@@ -22,18 +22,26 @@ def login():
 
 def search_terms():
     login()
-    pesquisa = 'diretor de producao' # Termo para pesquisa (TROCAR AQUI)
-    pesquisa = pesquisa.replace(' ', '%20')
-    fullLink = 'https://www.linkedin.com/search/results/people/?keywords='+pesquisa+'&origin=SWITCH_SEARCH_VERTICAL'
-    browser.get(fullLink)
-    connect()
-    fullLink = fullLink+'&page=2'
-    for i in range(3,11):
-        time.sleep(1)
+    pesquisas = ['gerente de produção',
+                 'diretor de produção',
+                 'gerente industrial',
+                 'diretor industrial',
+                 'gerente de engenharia',
+                 'diretor de engenharia',
+                 'gerente de pesquisa e desenvolvimento',
+                 'diretor de pesquisa e desenvolvimento'] # Termos para pesquisa 
+    for pesquisa in pesquisas:
+        pesquisa = pesquisa.replace(' ', '%20')
+        fullLink = 'https://www.linkedin.com/search/results/people/?keywords='+pesquisa+'&origin=SWITCH_SEARCH_VERTICAL'
         browser.get(fullLink)
-        time.sleep(2)
         connect()
-        fullLink = fullLink[:-1]+str(i)
+        fullLink = fullLink+'&page=2'
+        for i in range(3, 11): # Vai até a página 10
+            time.sleep(1)
+            browser.get(fullLink)
+            time.sleep(2)
+            connect()
+            fullLink = fullLink[:-1]+str(i)
     
 def getNewProfileIDs(soup):
     profilesID = []
