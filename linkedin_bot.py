@@ -29,10 +29,14 @@ def search_terms():
                  'gerente de engenharia',
                  'diretor de engenharia',
                  'gerente de pesquisa e desenvolvimento',
-                 'diretor de pesquisa e desenvolvimento'] # Termos para pesquisa 
+                 'diretor de pesquisa e desenvolvimento'] # Termos para pesquisa
+    pesquisas = random.sample(pesquisas, len(pesquisas))
     for pesquisa in pesquisas:
         pesquisa = pesquisa.replace(' ', '%20')
-        fullLink = 'https://www.linkedin.com/search/results/people/?keywords='+pesquisa+'&origin=SWITCH_SEARCH_VERTICAL'
+        # Pesquisa sem filtro de localização:
+        #fullLink = 'https://www.linkedin.com/search/results/people/?keywords='+pesquisa+'&origin=SWITCH_SEARCH_VERTICAL'
+        # Pesquisa com filtro de localização pro RS: (pra mudar tire o # da frente de um e coloque no outro)
+        fullLink = 'https://www.linkedin.com/search/results/people/?facetGeoUrn=%5B%22105031557%22%5D&keywords='+pesquisa+'&origin=SWITCH_SEARCH_VERTICAL'
         browser.get(fullLink)
         connect()
         fullLink = fullLink+'&page=2'
