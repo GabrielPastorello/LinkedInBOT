@@ -34,9 +34,9 @@ def search_terms():
     for pesquisa in pesquisas:
         pesquisa = pesquisa.replace(' ', '%20')
         # Pesquisa sem filtro de localização:
-        #fullLink = 'https://www.linkedin.com/search/results/people/?keywords='+pesquisa+'&origin=SWITCH_SEARCH_VERTICAL'
+        fullLink = 'https://www.linkedin.com/search/results/people/?keywords='+pesquisa+'&origin=SWITCH_SEARCH_VERTICAL'
         # Pesquisa com filtro de localização pro RS: (pra mudar tire o # da frente de um e coloque no outro)
-        fullLink = 'https://www.linkedin.com/search/results/people/?facetGeoUrn=%5B%22105031557%22%5D&keywords='+pesquisa+'&origin=SWITCH_SEARCH_VERTICAL'
+        #fullLink = 'https://www.linkedin.com/search/results/people/?facetGeoUrn=%5B%22105031557%22%5D&keywords='+pesquisa+'&origin=SWITCH_SEARCH_VERTICAL'
         browser.get(fullLink)
         connect()
         fullLink = fullLink+'&page=2'
