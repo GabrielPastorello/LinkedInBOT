@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 import random
 
-browser = webdriver.Chrome('chromedriver.exe') # Caminho para o Chromedriver
+browser = webdriver.Chrome('D:\\Gabriel\\aFacul\\Programacao\\chromedriver.exe') # Caminho para o Chromedriver
 
 def login():
     browser.get('https://www.linkedin.com/login/pt')
@@ -30,14 +30,18 @@ def search_terms():
                  'gerente de engenharia',
                  'diretor de engenharia',
                  'gerente de pesquisa e desenvolvimento',
-                 'diretor de pesquisa e desenvolvimento'] # Termos para pesquisa
+                 'diretor de pesquisa e desenvolvimento',
+                 'gerente de operações',
+                 'diretor de operações'] # Termos para pesquisa
     pesquisas = random.sample(pesquisas, len(pesquisas))
     for pesquisa in pesquisas:
         pesquisa = pesquisa.replace(' ', '%20')
         # Pesquisa sem filtro de localização:
-        fullLink = 'https://www.linkedin.com/search/results/people/?keywords='+pesquisa+'&origin=SWITCH_SEARCH_VERTICAL'
+        #fullLink = 'https://www.linkedin.com/search/results/people/?keywords='+pesquisa+'&origin=SWITCH_SEARCH_VERTICAL'
         # Pesquisa com filtro de localização pro RS: (pra mudar tire o # da frente de um e coloque no outro)
         #fullLink = 'https://www.linkedin.com/search/results/people/?facetGeoUrn=%5B%22105031557%22%5D&keywords='+pesquisa+'&origin=SWITCH_SEARCH_VERTICAL'
+        # Pesquisa com filtro de 3º ou + grau de conexão:
+        fullLink = 'https://www.linkedin.com/search/results/people/?keywords='+pesquisa+'&network=%5B%22O%22%5D&origin=FACETED_SEARCH'
         browser.get(fullLink)
         connect()
         fullLink = fullLink+'&page=2'
@@ -50,7 +54,7 @@ def search_terms():
     
 def getNewProfileIDs(soup):
     profilesID = []
-    all_links = soup.find_all('a', {'class': 'search-result__result-link ember-view'})
+    all_links = soup.find_all('a', {'data-entity-action-type': 'VIEW_ENTITY'})
     for link in all_links:
         userID = link.get('href')
         if userID not in profilesID:
@@ -64,7 +68,7 @@ def connect():
     for profile in profilesQueued:
         if profile not in visitedProfiles:
             try:
-                fullLink = 'https://www.linkedin.com'+profile
+                fullLink = profile
                 browser.get(fullLink)
                 time.sleep(1)
 
